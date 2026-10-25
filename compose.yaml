@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: grad_clear_db
+    restart: unless-stopped
+    environment:
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '5438:5432'
+    volumes:
+      - grad_clear_data:/var/lib/postgresql/data
+
+volumes:
+  grad_clear_data:
