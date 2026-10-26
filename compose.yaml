@@ -4,7 +4,7 @@ services:
     container_name: grad_clear_db
     restart: unless-stopped
     environment:
-      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_DB=gradclear_db'
       - 'POSTGRES_PASSWORD=postgres'
       - 'POSTGRES_USER=postgres'
     ports:
