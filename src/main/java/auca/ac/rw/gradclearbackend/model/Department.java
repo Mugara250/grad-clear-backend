@@ -20,7 +20,7 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "department_number", nullable = false)
+    @Column(name = "department_number", nullable = false, unique = true)
     private Integer deptNumber;
 
     @Column(nullable = false)
