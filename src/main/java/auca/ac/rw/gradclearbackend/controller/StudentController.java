@@ -17,9 +17,10 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Student student) {
-        return new ResponseEntity<>(student, HttpStatus.CREATED);
+        studentService.save(student);
+        return new ResponseEntity<>("Student saved successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/all")

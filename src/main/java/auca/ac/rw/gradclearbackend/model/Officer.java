@@ -1,10 +1,7 @@
 package auca.ac.rw.gradclearbackend.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +10,7 @@ import java.util.UUID;
 @Setter
 @Getter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "officer")
 public class Officer {
@@ -36,6 +33,10 @@ public class Officer {
     private Department department;
 
     @ManyToMany
-    @JoinTable(name = "officer_clearance_types")
+    @JoinTable(
+            name = "officer_clearance_types",
+            joinColumns = @JoinColumn(name = "officer_id"),
+            inverseJoinColumns = @JoinColumn(name = "clearance_type_id")
+    )
     List<ClearanceType> clearanceTypes = new ArrayList<>();
 }

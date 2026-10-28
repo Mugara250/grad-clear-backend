@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:17'
     container_name: grad_clear_db
     restart: unless-stopped
     environment:

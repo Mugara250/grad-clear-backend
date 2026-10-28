@@ -17,9 +17,10 @@ public class ClearanceTypeController {
 
     private final ClearanceTypeService clearanceTypeService;
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody ClearanceType clearanceType) {
-        return new ResponseEntity<>(clearanceType, HttpStatus.CREATED);
+        clearanceTypeService.save(clearanceType);
+        return new ResponseEntity<>("Clearance type saved successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/all")

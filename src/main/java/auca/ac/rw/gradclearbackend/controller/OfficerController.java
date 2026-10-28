@@ -17,9 +17,10 @@ public class OfficerController {
 
     private final OfficerService officerService;
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Officer officer) {
-        return new ResponseEntity<>(officer, HttpStatus.CREATED);
+        officerService.save(officer);
+        return new ResponseEntity<>("Officer saved successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/all")

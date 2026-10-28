@@ -17,9 +17,10 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Department department) {
-        return new ResponseEntity<>(department, HttpStatus.CREATED);
+        departmentService.save(department);
+        return new ResponseEntity<>("Department saved successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
