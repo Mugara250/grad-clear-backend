@@ -1,6 +1,7 @@
 package auca.ac.rw.gradclearbackend.controller;
 
 import auca.ac.rw.gradclearbackend.model.ClearanceRequest;
+import auca.ac.rw.gradclearbackend.model.ClearanceStatus;
 import auca.ac.rw.gradclearbackend.service.ClearanceRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,11 @@ public class ClearanceRequestController {
         } else {
             return new ResponseEntity<>("Clearance request type not found", HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/by-status")
+    public ResponseEntity<?> findAllByStatus(@RequestParam ClearanceStatus status) {
+        return new ResponseEntity<>(clearanceRequestService.findAllByStatus(status), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")

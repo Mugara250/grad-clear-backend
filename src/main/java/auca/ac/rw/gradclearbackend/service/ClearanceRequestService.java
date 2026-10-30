@@ -1,6 +1,7 @@
 package auca.ac.rw.gradclearbackend.service;
 
 import auca.ac.rw.gradclearbackend.model.ClearanceRequest;
+import auca.ac.rw.gradclearbackend.model.ClearanceStatus;
 import auca.ac.rw.gradclearbackend.repository.ClearanceRequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class ClearanceRequestService {
         return clearanceRequestRepository.findById(id);
     }
 
+    public List<ClearanceRequest> findAllByStatus(ClearanceStatus status) {
+        return clearanceRequestRepository.findAllByStatus(status);
+    }
     public Optional<ClearanceRequest> update(UUID id, ClearanceRequest updated) {
         Optional<ClearanceRequest> existing = clearanceRequestRepository.findById(id);
 
