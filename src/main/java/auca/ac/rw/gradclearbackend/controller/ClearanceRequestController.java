@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -44,6 +45,15 @@ public class ClearanceRequestController {
     @GetMapping("/by-status")
     public ResponseEntity<?> findAllByStatus(@RequestParam ClearanceStatus status) {
         return new ResponseEntity<>(clearanceRequestService.findAllByStatus(status), HttpStatus.OK);
+    }
+
+    @GetMapping("/between")
+    public ResponseEntity<?> findAllBetween(@RequestParam String start, @RequestParam String end) {
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        return new ResponseEntity<>(clearanceRequestService.
+                findWithinDateRange(startDate, endDate),
+                HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")

@@ -3,9 +3,11 @@ package auca.ac.rw.gradclearbackend.service;
 import auca.ac.rw.gradclearbackend.model.ClearanceRequest;
 import auca.ac.rw.gradclearbackend.model.ClearanceStatus;
 import auca.ac.rw.gradclearbackend.repository.ClearanceRequestRepository;
+import auca.ac.rw.gradclearbackend.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,6 +17,7 @@ import java.util.UUID;
 public class ClearanceRequestService {
 
     private final ClearanceRequestRepository clearanceRequestRepository;
+    private final StudentRepository studentRepository;
 
     public ClearanceRequest save(ClearanceRequest clearanceRequest) {
         return clearanceRequestRepository.save(clearanceRequest);
@@ -54,4 +57,9 @@ public class ClearanceRequestService {
         }
 
         return false;
-    }}
+    }
+
+    public List<ClearanceRequest> findWithinDateRange(LocalDate startDate, LocalDate endDate) {
+        return clearanceRequestRepository.findAllByRequestDateBetween(startDate, endDate);
+    }
+}
