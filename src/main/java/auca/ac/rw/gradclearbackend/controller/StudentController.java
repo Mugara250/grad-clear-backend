@@ -40,6 +40,11 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/by-last-name")
+    public ResponseEntity<?> findAllByLastName(@RequestParam String lastName) {
+        return new ResponseEntity<>(studentService.findAllByLastName(lastName), HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody Student updated) {
 

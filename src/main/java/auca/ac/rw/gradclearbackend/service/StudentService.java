@@ -27,6 +27,9 @@ public class StudentService {
         return studentRepository.findById(id);
     }
 
+    public List<Student> findAllByLastName(String lastName) {
+        return studentRepository.findAllByLastName(lastName);
+    }
     public Optional<Student> update(UUID id, Student updated) {
         Optional<Student> existing = studentRepository.findById(id);
 
