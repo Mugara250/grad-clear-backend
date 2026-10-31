@@ -40,6 +40,11 @@ public class DepartmentController {
         }
     }
 
+    @GetMapping("/free")
+    public ResponseEntity<?> findDepartmentsWithoutOfficers() {
+        return new ResponseEntity<>(departmentService.findDepartmentsWithoutOfficers(), HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody Department updated) {
 

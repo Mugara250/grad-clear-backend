@@ -26,6 +26,10 @@ public class DepartmentService {
         return departmentRepository.findById(id);
     }
 
+    public List<Department> findDepartmentsWithoutOfficers() {
+        return departmentRepository.findDepartmentsWithoutOfficers();
+    }
+
     public Optional<Department> update(UUID id, Department updated) {
         Optional<Department> existing = departmentRepository.findById(id);
 
