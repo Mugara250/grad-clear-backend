@@ -27,6 +27,10 @@ public class OfficerService {
         return officerRepository.findById(id);
     }
 
+    public List<Officer> findAllByClearanceTypeName(String name) {
+        return officerRepository.findAllByClearanceTypeName(name);
+    }
+
     public Optional<Officer> update(UUID id, Officer updated) {
         Optional<Officer> existing = officerRepository.findById(id);
 

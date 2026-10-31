@@ -40,6 +40,11 @@ public class OfficerController {
         }
     }
 
+    @GetMapping("/by-clearance-type")
+    public ResponseEntity<?> findAllByClearanceType(@RequestParam String name) {
+        return new ResponseEntity<>(officerService.findAllByClearanceTypeName(name), HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody Officer updated) {
 
