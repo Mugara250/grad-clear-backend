@@ -25,4 +25,12 @@ public class ClearanceRequest {
     private ClearanceStatus status;
 
     private String reason;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "officer_id")
+    private Officer officer;
 }
