@@ -34,11 +34,16 @@ public class ClearanceRequestService {
     public List<ClearanceRequest> findAllByStatus(ClearanceStatus status) {
         return clearanceRequestRepository.findAllByStatus(status);
     }
+
     public Optional<ClearanceRequest> update(UUID id, ClearanceRequest updated) {
         Optional<ClearanceRequest> existing = clearanceRequestRepository.findById(id);
 
         if (existing.isPresent()) {
             ClearanceRequest found = existing.get();
+
+            if (!isValidStatusTransition(found.getStatus(), updated.getStatus())) {
+                return Optional.empty();
+            }
 
             found.setStatus(updated.getStatus());
 
@@ -46,6 +51,18 @@ public class ClearanceRequestService {
         }
 
         return Optional.empty();
+    }
+
+    public boolean isValidStatusTransition(ClearanceStatus current, ClearanceStatus next) {
+        if (current == null || next == null) {
+            return false;
+        }
+
+        return switch (current) {
+            case PENDING -> next == ClearanceStatus.UNDER_REVIEW || next == ClearanceStatus.REJECTED;
+            case UNDER_REVIEW -> next == ClearanceStatus.APPROVED || next == ClearanceStatus.REJECTED;
+            case APPROVED, REJECTED -> false;
+        };
     }
 
     public boolean delete(UUID id) {

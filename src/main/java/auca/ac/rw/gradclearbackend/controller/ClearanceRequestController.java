@@ -59,13 +59,27 @@ public class ClearanceRequestController {
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody ClearanceRequest updated) {
 
+        Optional<ClearanceRequest> existing = clearanceRequestService.find(id);
+
+        if (existing.isEmpty()) {
+            return new ResponseEntity<>("Clearance request not found", HttpStatus.NOT_FOUND);
+        }
+
+        ClearanceStatus current = existing.get().getStatus();
+        ClearanceStatus next = updated.getStatus();
+
+        if (!clearanceRequestService.isValidStatusTransition(current, next)) {
+            return new ResponseEntity<>("Cannot change status from " +
+                    current + " to " + next, HttpStatus.BAD_REQUEST);
+        }
+
         Optional<ClearanceRequest> result = clearanceRequestService.update(id, updated);
 
         if (result.isPresent()) {
             return new ResponseEntity<>(result.get(), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>("Clearance request not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Clearance could not be updated", HttpStatus.CONFLICT);
     }
 
     @DeleteMapping("/delete/{id}")
