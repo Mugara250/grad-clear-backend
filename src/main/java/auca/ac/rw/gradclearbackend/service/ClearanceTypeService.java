@@ -27,6 +27,10 @@ public class ClearanceTypeService {
         return clearanceTypeRepository.findById(id);
     }
 
+    public List<ClearanceType> findAllWithoutOfficers() {
+        return clearanceTypeRepository.findAllWithoutOfficers();
+    }
+
     public Optional<ClearanceType> update(UUID id, ClearanceType updated) {
         Optional<ClearanceType> existing = clearanceTypeRepository.findById(id);
 

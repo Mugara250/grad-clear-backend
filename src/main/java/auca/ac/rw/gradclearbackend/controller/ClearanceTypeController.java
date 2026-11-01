@@ -40,6 +40,11 @@ public class ClearanceTypeController {
         }
     }
 
+    @GetMapping("/unused")
+    public ResponseEntity<?> findAllWithoutOfficers() {
+        return new ResponseEntity<>(clearanceTypeService.findAllWithoutOfficers(), HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody ClearanceType updated) {
 
