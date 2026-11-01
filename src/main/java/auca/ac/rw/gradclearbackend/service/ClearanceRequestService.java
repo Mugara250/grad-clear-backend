@@ -114,6 +114,10 @@ public class ClearanceRequestService {
         return "Clearance request deleted successfully";
     }
 
+    public List<Object[]> getClearanceRequestStatsByStatus() {
+        return clearanceRequestRepository.countClearanceRequestsByStatus();
+    }
+
     public List<ClearanceRequest> findWithinDateRange(LocalDate startDate, LocalDate endDate) {
         return clearanceRequestRepository.findAllByRequestDateBetween(startDate, endDate);
     }

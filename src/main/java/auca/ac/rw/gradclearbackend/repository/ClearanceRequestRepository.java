@@ -3,6 +3,7 @@ package auca.ac.rw.gradclearbackend.repository;
 import auca.ac.rw.gradclearbackend.model.ClearanceRequest;
 import auca.ac.rw.gradclearbackend.model.ClearanceStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,4 +16,11 @@ public interface ClearanceRequestRepository extends JpaRepository<ClearanceReque
 
     boolean existsByOfficerIdAndRequestDateAndStatusNot(
             UUID officerId, LocalDate requestDate, ClearanceStatus status);
+
+    @Query("""
+    SELECT cr.status, COUNT(cr)
+    FROM ClearanceRequest cr
+    GROUP BY cr.status
+""")
+    List<Object[]> countClearanceRequestsByStatus();
 }

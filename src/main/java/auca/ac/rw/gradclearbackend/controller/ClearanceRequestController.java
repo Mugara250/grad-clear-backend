@@ -67,6 +67,11 @@ public class ClearanceRequestController {
                 HttpStatus.OK);
     }
 
+    @GetMapping("/stats/by-status")
+    public ResponseEntity<?> getClearanceRequestStatusByStatus() {
+        return new ResponseEntity<>(clearanceRequestService.getClearanceRequestStatsByStatus(), HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody ClearanceRequest updated) {
         Optional<ClearanceRequest> result = clearanceRequestService.update(id, updated);
@@ -117,6 +122,7 @@ public class ClearanceRequestController {
         }
 
         if (result.equals("That clearance request has clearance documents, delete them first")) {
+            System.out.println("Returning HTTP 409");
             return new ResponseEntity<>(result, HttpStatus.CONFLICT);
         }
 
