@@ -19,8 +19,21 @@ public class ClearanceRequestService {
     private final ClearanceRequestRepository clearanceRequestRepository;
     private final StudentRepository studentRepository;
 
-    public ClearanceRequest save(ClearanceRequest clearanceRequest) {
-        return clearanceRequestRepository.save(clearanceRequest);
+    public String save(ClearanceRequest clearanceRequest) {
+        if (clearanceRequest.getRequestDate() == null || isDateInPast(clearanceRequest.getRequestDate())) {
+            return "Clearance request date cannot be in the past";
+        }
+
+        if (clearanceRequest.getOfficer() == null || clearanceRequest.getOfficer().getId() == null) {
+            return "Officer is required";
+        }
+
+        if (isOfficerBooked(clearanceRequest)) {
+            return "Officer is already booked on that date";
+        }
+        clearanceRequestRepository.save(clearanceRequest);
+
+        return "Clearance request saved successfully";
     }
 
     public List<ClearanceRequest> findAll() {
@@ -78,5 +91,17 @@ public class ClearanceRequestService {
 
     public List<ClearanceRequest> findWithinDateRange(LocalDate startDate, LocalDate endDate) {
         return clearanceRequestRepository.findAllByRequestDateBetween(startDate, endDate);
+    }
+
+    public boolean isDateInPast(LocalDate requestDate) {
+        return requestDate != null && requestDate.isBefore(LocalDate.now());
+    }
+
+    public boolean isOfficerBooked(ClearanceRequest request) {
+        return clearanceRequestRepository.existsByOfficerIdAndRequestDateAndStatusNot(
+                request.getOfficer().getId(),
+                request.getRequestDate(),
+                ClearanceStatus.REJECTED
+        );
     }
 }

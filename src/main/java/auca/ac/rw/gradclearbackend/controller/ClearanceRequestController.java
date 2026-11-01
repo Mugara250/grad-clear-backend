@@ -21,8 +21,17 @@ public class ClearanceRequestController {
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody ClearanceRequest clearanceRequest) {
-        clearanceRequestService.save(clearanceRequest);
-        return new ResponseEntity<>("Clearance request saved successfully", HttpStatus.CREATED);
+        String result = clearanceRequestService.save(clearanceRequest);
+
+        if (result.equals("Clearance request date cannot be in the past") || result.equals("Officer is required")) {
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+
+        if (result.equals("Officer is already booked on that date")) {
+            return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")

@@ -12,4 +12,7 @@ public interface ClearanceRequestRepository extends JpaRepository<ClearanceReque
     List<ClearanceRequest> findAllByStatus(ClearanceStatus status);
 
     List<ClearanceRequest> findAllByRequestDateBetween(LocalDate requestDateAfter, LocalDate requestDateBefore);
+
+    boolean existsByOfficerIdAndRequestDateAndStatusNot(
+            UUID officerId, LocalDate requestDate, ClearanceStatus status);
 }
