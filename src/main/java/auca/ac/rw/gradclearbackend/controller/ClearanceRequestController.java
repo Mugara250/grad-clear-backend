@@ -3,6 +3,7 @@ package auca.ac.rw.gradclearbackend.controller;
 import auca.ac.rw.gradclearbackend.model.ClearanceRequest;
 import auca.ac.rw.gradclearbackend.model.ClearanceStatus;
 import auca.ac.rw.gradclearbackend.service.ClearanceRequestService;
+import auca.ac.rw.gradclearbackend.service.OfficerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class ClearanceRequestController {
 
     private final ClearanceRequestService clearanceRequestService;
+    private final OfficerService officerService;
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody ClearanceRequest clearanceRequest) {
@@ -76,6 +78,8 @@ public class ClearanceRequestController {
 
         return new ResponseEntity<>("Clearance request updated successfully", HttpStatus.OK);
     }
+
+
 
     @PatchMapping("/{id}/status")
     public ResponseEntity<?> updateStatus(@PathVariable UUID id, @RequestParam ClearanceStatus status) {

@@ -57,6 +57,23 @@ public class OfficerController {
         return new ResponseEntity<>("Officer not found", HttpStatus.NOT_FOUND);
     }
 
+    @PutMapping("/{officerId}/clearance-types/{clearanceTypeId}")
+    public ResponseEntity<?> addClearanceType(@PathVariable UUID officerId,
+                                              @PathVariable UUID clearanceTypeId){
+        String result = officerService.addClearanceType(officerId, clearanceTypeId);
+
+        if (result.equals("The officer with that id does not exist")
+                || result.equals("That clearance type does not exist")) {
+            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        }
+
+        if (result.equals("The officer already has that clearance type")) {
+            return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
 
