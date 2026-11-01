@@ -122,6 +122,15 @@ public class ClearanceRequestService {
         return clearanceRequestRepository.findAllByRequestDateBetween(startDate, endDate);
     }
 
+    public int cancelRequestsForOfficerOnDate(UUID officerId, LocalDate date) {
+        return clearanceRequestRepository.cancelRequestForOfficerOnDate(
+                officerId,
+                date,
+                ClearanceStatus.REJECTED,
+                ClearanceStatus.APPROVED
+        );
+    }
+
     public boolean isDateInPast(LocalDate requestDate) {
         return requestDate != null && requestDate.isBefore(LocalDate.now());
     }

@@ -72,6 +72,16 @@ public class ClearanceRequestController {
         return new ResponseEntity<>(clearanceRequestService.getClearanceRequestStatsByStatus(), HttpStatus.OK);
     }
 
+    @GetMapping("/cancel-day")
+    public ResponseEntity<?> cancelRequestsForOfficerOnDate(
+            @RequestParam UUID officerId,
+            @RequestParam LocalDate date
+    ) {
+        int count = clearanceRequestService.cancelRequestsForOfficerOnDate(officerId, date);
+
+        return new ResponseEntity<>(count + " clearance requests cancelled", HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody ClearanceRequest updated) {
         Optional<ClearanceRequest> result = clearanceRequestService.update(id, updated);

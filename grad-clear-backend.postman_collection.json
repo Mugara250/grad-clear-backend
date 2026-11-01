@@ -1,0 +1,737 @@
+{
+  "info": {
+    "_postman_id": "c212a0be-1963-434d-8bc0-54f606e86ca7",
+    "name": "grad-clear-backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50076904"
+  },
+  "item": [
+    {
+      "name": "part A",
+      "item": [
+        {
+          "name": "create clearance type",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Sports\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-types/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-types",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create department",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"deptNumber\": 104,\r\n    \"name\": \"Sports\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/departments/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "departments",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "clearance types",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-types/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-types",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "departments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/departments/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "departments",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "officer",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Yvette\",\r\n  \"lastName\": \"Uwayo\",\r\n  \"email\": \"yvetteuwayo@auca.ac.rw\",\r\n  \"department\": {\r\n    \"id\": \"a7dac46c-8045-43c8-bee8-2aaff657907b\"\r\n  },\r\n  \"clearanceTypes\": [\r\n    {\r\n        \"id\": \"597960a4-c038-4b1d-ba9f-a66f90bbe0e5\"\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/officers/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "officers",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "student",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Clemence\",\r\n    \"lastName\": \"Usanase\",\r\n    \"regNumber\": \"24-1238\",\r\n    \"email\": \"usanaseclemence@gmail.com\",\r\n    \"phone\": \"0781245678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/students/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "students",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "clearance request",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"requestDate\": \"2026-11-20\",\r\n  \"status\": \"APPROVED\",\r\n  \"reason\": \"Final library clearance requirements satisfied\",\r\n  \"student\": {\r\n    \"id\": \"f2dac32a-8ed5-4c99-9dd8-73e8903ddc12\"\r\n  },\r\n  \"officer\": {\r\n    \"id\": \"61790a46-fd4e-43b7-b1ae-a5f25a585950\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-requests/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-requests",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "officers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/officers/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "officers",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "students",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/students/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "students",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update student",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n    \"firstName\": \"Eric\",\r\n    \"lastName\": \"Mugiraneza\",\r\n    \"regNumber\": \"24-1236\",\r\n    \"email\": \"ericmugi87@gmail.com\",\r\n    \"phone\": \"0788739123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/students/update/5ac2f1c5-3f5d-47c1-ad11-7d98ac936309",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "students",
+                "update",
+                "5ac2f1c5-3f5d-47c1-ad11-7d98ac936309"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "clearance requests",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-requests/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-requests",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete clearance request",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-requests/delete/44d90b80-9756-4ccc-8149-bc281052c862",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-requests",
+                "delete",
+                "44d90b80-9756-4ccc-8149-bc281052c862"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "part B",
+      "item": [
+        {
+          "name": "students by last name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/students/by-last-name?lastName=Mugiraneza",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "students",
+                "by-last-name"
+              ],
+              "query": [
+                {
+                  "key": "lastName",
+                  "value": "Mugiraneza"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find clearance requests by status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-requests/by-status?status=APPROVED",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-requests",
+                "by-status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "APPROVED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "clearance requests within date range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-requests/between?start=2026-10-01&end=2026-10-31",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-requests",
+                "between"
+              ],
+              "query": [
+                {
+                  "key": "start",
+                  "value": "2026-10-01"
+                },
+                {
+                  "key": "end",
+                  "value": "2026-10-31"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "part C",
+      "item": [
+        {
+          "name": "officers  by clearance type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/officers/by-clearance-type?name=finance",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "officers",
+                "by-clearance-type"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "finance"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "free departments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/departments/free",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "departments",
+                "free"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "clearance types held by nobody",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-types/unused",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-types",
+                "unused"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "students of officer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/students/of-officer/61790a46-fd4e-43b7-b1ae-a5f25a585950",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "students",
+                "of-officer",
+                "61790a46-fd4e-43b7-b1ae-a5f25a585950"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "part D",
+      "item": [
+        {
+          "name": "update status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-requests/3aa6f515-c56e-4c9c-8db8-d11b26503f4c/status?status=PENDING",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-requests",
+                "3aa6f515-c56e-4c9c-8db8-d11b26503f4c",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "PENDING"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add clearance type to officer",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/officers/a4c132eb-4817-43f5-a79d-bda539676611/clearance-types/2b3b2378-c83e-417a-b06a-5773206b28c3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "officers",
+                "a4c132eb-4817-43f5-a79d-bda539676611",
+                "clearance-types",
+                "2b3b2378-c83e-417a-b06a-5773206b28c3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "change department",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/officers/61790a46-fd4e-43b7-b1ae-a5f25a585950/department?deptNumber=102",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "officers",
+                "61790a46-fd4e-43b7-b1ae-a5f25a585950",
+                "department"
+              ],
+              "query": [
+                {
+                  "key": "deptNumber",
+                  "value": "102"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "part E",
+      "item": [
+        {
+          "name": "save clearance document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"documentName\": \"Library clearance letter\", \r\n    \"remarks\": \"No pending books\", \r\n    \"copies\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-documents/save?clearanceRequestId=44d90b80-9756-4ccc-8149-bc281052c862",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-documents",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "clearanceRequestId",
+                  "value": "44d90b80-9756-4ccc-8149-bc281052c862"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "student clearance document history",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-documents/student/24-1234",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-documents",
+                "student",
+                "24-1234"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "clearance documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-documents/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-documents",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete clearance document",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-documents/delete/0c9ae71f-1fb9-4904-8292-3b8bd8509a9a",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-documents",
+                "delete",
+                "0c9ae71f-1fb9-4904-8292-3b8bd8509a9a"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "part F",
+      "item": [
+        {
+          "name": "clearance requests stats by status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8088/api/clearance-requests/stats/by-status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8088",
+              "path": [
+                "api",
+                "clearance-requests",
+                "stats",
+                "by-status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "cancel requests",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
