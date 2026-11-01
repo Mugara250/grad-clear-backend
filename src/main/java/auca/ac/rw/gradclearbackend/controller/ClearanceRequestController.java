@@ -67,28 +67,40 @@ public class ClearanceRequestController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody ClearanceRequest updated) {
+        Optional<ClearanceRequest> result = clearanceRequestService.update(id, updated);
 
+        if (result.isEmpty()) {
+            return new ResponseEntity<>("The clearance request with that id does not exist",
+                    HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>("Clearance request updated successfully", HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<?> updateStatus(@PathVariable UUID id, @RequestParam ClearanceStatus status) {
         Optional<ClearanceRequest> existing = clearanceRequestService.find(id);
 
         if (existing.isEmpty()) {
-            return new ResponseEntity<>("Clearance request not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("The clearance request with that id does not exist",
+                    HttpStatus.NOT_FOUND);
         }
 
         ClearanceStatus current = existing.get().getStatus();
-        ClearanceStatus next = updated.getStatus();
 
-        if (!clearanceRequestService.isValidStatusTransition(current, next)) {
-            return new ResponseEntity<>("Cannot change status from " +
-                    current + " to " + next, HttpStatus.BAD_REQUEST);
+        if (!clearanceRequestService.isValidStatusTransition(current, status)) {
+            return new ResponseEntity<>("Cannot change status from " + current + " to " + status,
+                    HttpStatus.BAD_REQUEST);
         }
 
-        Optional<ClearanceRequest> result = clearanceRequestService.update(id, updated);
+        Optional<ClearanceRequest> result = clearanceRequestService.updateStatus(id, status);
 
-        if (result.isPresent()) {
-            return new ResponseEntity<>(result.get(), HttpStatus.OK);
+        if (result.isEmpty()) {
+            return new ResponseEntity<>("Cannot change status from " + current + " to " + status,
+                    HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>("Clearance could not be updated", HttpStatus.CONFLICT);
+        return new ResponseEntity<>("Clearance request status updated successfully", HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

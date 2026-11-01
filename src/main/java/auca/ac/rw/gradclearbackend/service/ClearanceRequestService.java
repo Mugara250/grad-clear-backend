@@ -51,19 +51,36 @@ public class ClearanceRequestService {
     public Optional<ClearanceRequest> update(UUID id, ClearanceRequest updated) {
         Optional<ClearanceRequest> existing = clearanceRequestRepository.findById(id);
 
-        if (existing.isPresent()) {
-            ClearanceRequest found = existing.get();
-
-            if (!isValidStatusTransition(found.getStatus(), updated.getStatus())) {
-                return Optional.empty();
-            }
-
-            found.setStatus(updated.getStatus());
-
-            return Optional.of(clearanceRequestRepository.save(found));
+        if (existing.isEmpty()) {
+            return Optional.empty();
         }
 
-        return Optional.empty();
+        ClearanceRequest found = existing.get();
+
+        found.setRequestDate(updated.getRequestDate());
+        found.setReason(updated.getReason());
+        found.setStudent(updated.getStudent());
+        found.setOfficer(updated.getOfficer());
+
+        return Optional.of(clearanceRequestRepository.save(found));
+    }
+
+    public Optional<ClearanceRequest> updateStatus(UUID id, ClearanceStatus status) {
+        Optional<ClearanceRequest> existing = clearanceRequestRepository.findById(id);
+
+        if (existing.isEmpty()) {
+            return Optional.empty();
+        }
+
+        ClearanceRequest request = existing.get();
+
+        if (!isValidStatusTransition(request.getStatus(), status)) {
+            return Optional.empty();
+        }
+
+        request.setStatus(status);
+
+        return Optional.of(clearanceRequestRepository.save(request));
     }
 
     public boolean isValidStatusTransition(ClearanceStatus current, ClearanceStatus next) {
