@@ -1,8 +1,10 @@
 package auca.ac.rw.gradclearbackend.service;
 
 import auca.ac.rw.gradclearbackend.model.ClearanceType;
+import auca.ac.rw.gradclearbackend.model.Department;
 import auca.ac.rw.gradclearbackend.model.Officer;
 import auca.ac.rw.gradclearbackend.repository.ClearanceTypeRepository;
+import auca.ac.rw.gradclearbackend.repository.DepartmentRepository;
 import auca.ac.rw.gradclearbackend.repository.OfficerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ public class OfficerService {
 
     private final OfficerRepository officerRepository;
     private final ClearanceTypeRepository clearanceTypeRepository;
+    private final DepartmentRepository departmentRepository;
 
     public Officer save(Officer officer) {
         return officerRepository.save(officer);
@@ -94,5 +97,32 @@ public class OfficerService {
         officerRepository.save(officer);
 
         return "Clearance type added to the officer";
+    }
+
+    public String changeDepartment(UUID officerId, Integer deptNumber) {
+        Optional<Officer> existingOfficer = officerRepository.findById(officerId);
+
+        if (existingOfficer.isEmpty()) {
+            return "The officer with that id does not exist";
+        }
+
+        Optional<Department> existingDepartment = departmentRepository.findByDeptNumber(deptNumber);
+
+        if (existingDepartment.isEmpty()) {
+            return "The department with that deptNumber does not exist";
+        }
+
+        Officer officer = existingOfficer.get();
+        Department department = existingDepartment.get();
+
+        if (officerRepository.existsByDepartmentAndIdNot(department, officerId)) {
+            return "That department is taken by another officer";
+        }
+
+        officer.setDepartment(department);
+
+        officerRepository.save(officer);
+
+        return "Department changed successfully";
     }
 }

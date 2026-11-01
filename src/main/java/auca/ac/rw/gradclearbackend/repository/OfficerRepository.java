@@ -1,5 +1,6 @@
 package auca.ac.rw.gradclearbackend.repository;
 
+import auca.ac.rw.gradclearbackend.model.Department;
 import auca.ac.rw.gradclearbackend.model.Officer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,7 @@ public interface OfficerRepository extends JpaRepository<Officer, UUID> {
     WHERE LOWER(ct.name) = LOWER(:name) 
 """)
     List<Officer> findAllByClearanceTypeName(@Param("name") String name);
+
+    boolean existsByDepartmentAndIdNot(Department department, UUID id);
+
 }

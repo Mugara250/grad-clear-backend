@@ -74,6 +74,22 @@ public class OfficerController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PatchMapping("/{officerId}/department")
+    public ResponseEntity<?> changeDepartment(@PathVariable UUID officerId, @RequestParam Integer deptNumber) {
+        String result = officerService.changeDepartment(officerId, deptNumber);
+
+        if (result.equals("The officer with that id does not exist")
+                || result.equals("The department with that deptNumber does not exist")) {
+            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        }
+
+        if (result.equals("That department is taken by another officer")) {
+            return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
 
