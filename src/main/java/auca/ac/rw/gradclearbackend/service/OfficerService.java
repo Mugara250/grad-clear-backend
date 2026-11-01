@@ -31,6 +31,10 @@ public class OfficerService {
         return officerRepository.findAllByClearanceTypeName(name);
     }
 
+    public boolean existsById(UUID officerId) {
+        return officerRepository.existsById(officerId);
+    }
+
     public Optional<Officer> update(UUID id, Officer updated) {
         Optional<Officer> existing = officerRepository.findById(id);
 

@@ -1,6 +1,7 @@
 package auca.ac.rw.gradclearbackend.controller;
 
 import auca.ac.rw.gradclearbackend.model.Student;
+import auca.ac.rw.gradclearbackend.service.OfficerService;
 import auca.ac.rw.gradclearbackend.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.UUID;
 public class StudentController {
 
     private final StudentService studentService;
+    private final OfficerService officerService;
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Student student) {
@@ -43,6 +45,15 @@ public class StudentController {
     @GetMapping("/by-last-name")
     public ResponseEntity<?> findAllByLastName(@RequestParam String lastName) {
         return new ResponseEntity<>(studentService.findAllByLastName(lastName), HttpStatus.OK);
+    }
+
+    @GetMapping("/of-officer/{officerId}")
+    public ResponseEntity<?> findStudentsByOfficerId(@PathVariable UUID officerId) {
+        if (!officerService.existsById(officerId)) {
+            return new ResponseEntity<>("The officer with that id does not exist", HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(studentService.findStudentsByOfficerId(officerId), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")

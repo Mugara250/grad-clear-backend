@@ -30,6 +30,13 @@ public class StudentService {
     public List<Student> findAllByLastName(String lastName) {
         return studentRepository.findAllByLastName(lastName);
     }
+
+    public List<Student> findStudentsByOfficerId(UUID officerId) {
+        Optional<Student> student = studentRepository.findById(officerId);
+
+        return studentRepository.findStudentsByOfficerId(officerId);
+    }
+
     public Optional<Student> update(UUID id, Student updated) {
         Optional<Student> existing = studentRepository.findById(id);
 
