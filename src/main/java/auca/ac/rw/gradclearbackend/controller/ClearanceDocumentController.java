@@ -4,10 +4,12 @@ import auca.ac.rw.gradclearbackend.model.ClearanceDocument;
 import auca.ac.rw.gradclearbackend.repository.ClearanceDocumentRepository;
 import auca.ac.rw.gradclearbackend.service.ClearanceDocumentService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.engine.spi.Resolution;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -33,5 +35,16 @@ public class ClearanceDocumentController {
         }
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> findAll() {
+        return new ResponseEntity<>(clearanceDocumentService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/student/{regNumber}")
+    public ResponseEntity<?> getDocumentsByStudentRegNumber(@PathVariable String regNumber) {
+        List<ClearanceDocument> documents = clearanceDocumentService.getDocumentsByStudentRegNumber(regNumber);
+        return new ResponseEntity<>(documents, HttpStatus.OK);
     }
 }
