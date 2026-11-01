@@ -48,4 +48,14 @@ public class ClearanceDocumentService {
     public List<ClearanceDocument> getDocumentsByStudentRegNumber(String regNumber) {
         return clearanceDocumentRepository.findClearanceDocumentsByRegNumber(regNumber);
     }
+
+    public boolean delete(UUID id) {
+        if (!clearanceDocumentRepository.existsById(id)) {
+            return false;
+        }
+
+        clearanceDocumentRepository.deleteById(id);
+
+        return true;
+    }
 }

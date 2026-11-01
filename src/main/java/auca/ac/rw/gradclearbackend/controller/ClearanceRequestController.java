@@ -110,13 +110,18 @@ public class ClearanceRequestController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
 
-        boolean deleted = clearanceRequestService.delete(id);
+        String result = clearanceRequestService.delete(id);
 
-        if (deleted) {
-            return ResponseEntity.noContent().build();
+        if (result.equals("The clearance request with that id does not exist")) {
+            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>("Clearance request not found", HttpStatus.NOT_FOUND);
+        if (result.equals("That clearance request has clearance documents, delete them first")) {
+            return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
     }
 
 }

@@ -47,4 +47,17 @@ public class ClearanceDocumentController {
         List<ClearanceDocument> documents = clearanceDocumentService.getDocumentsByStudentRegNumber(regNumber);
         return new ResponseEntity<>(documents, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+        boolean deleted = clearanceDocumentService.delete(id);
+
+        if (!deleted) {
+            return new ResponseEntity<>("The clearance document with that id does not exist",
+                    HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>("Clearance document deleted successfully",
+                HttpStatus.OK);
+    }
 }

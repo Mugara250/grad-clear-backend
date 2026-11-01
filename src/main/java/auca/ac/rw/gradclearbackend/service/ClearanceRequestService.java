@@ -2,6 +2,7 @@ package auca.ac.rw.gradclearbackend.service;
 
 import auca.ac.rw.gradclearbackend.model.ClearanceRequest;
 import auca.ac.rw.gradclearbackend.model.ClearanceStatus;
+import auca.ac.rw.gradclearbackend.repository.ClearanceDocumentRepository;
 import auca.ac.rw.gradclearbackend.repository.ClearanceRequestRepository;
 import auca.ac.rw.gradclearbackend.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class ClearanceRequestService {
 
     private final ClearanceRequestRepository clearanceRequestRepository;
-    private final StudentRepository studentRepository;
+    private final ClearanceDocumentRepository clearanceDocumentRepository;
 
     public String save(ClearanceRequest clearanceRequest) {
         if (clearanceRequest.getRequestDate() == null || isDateInPast(clearanceRequest.getRequestDate())) {
@@ -95,15 +96,22 @@ public class ClearanceRequestService {
         };
     }
 
-    public boolean delete(UUID id) {
+    public String delete(UUID id) {
         Optional<ClearanceRequest> existing = clearanceRequestRepository.findById(id);
 
-        if (existing.isPresent()) {
-            clearanceRequestRepository.delete(existing.get());
-            return true;
+        if (existing.isEmpty()) {
+            return "The clearance request with that id does not exist";
         }
 
-        return false;
+        ClearanceRequest clearanceRequest = existing.get();
+
+        if (clearanceDocumentRepository.existsByClearanceRequest(clearanceRequest)) {
+            return "The clearance request has clearance documents, delete them first";
+        }
+
+        clearanceRequestRepository.delete(clearanceRequest);
+
+        return "Clearance request deleted successfully";
     }
 
     public List<ClearanceRequest> findWithinDateRange(LocalDate startDate, LocalDate endDate) {
